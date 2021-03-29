@@ -1,0 +1,20 @@
+---
+- name: install or update packages
+  package:
+    name:
+      - ntp
+      - ntpdate
+      - rsync
+      - bash-completion
+      - net-tools
+      - wget
+      - gcc
+      - gcc-c++
+      - lrzsz
+      - vim
+      - unzip
+      - make
+      - openssl-devel
+      - openssh
+      - iptables-services
+    state: latest

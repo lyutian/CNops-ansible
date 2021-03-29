@@ -1,0 +1,14 @@
+---
+- name: selinux - get enforce status
+  command: getenforce
+  register: selinux_status
+
+- name: selinux - set enforce as Permissive
+  command: setenforce Permissive
+  when: selinux_status.stdout != 'Disabled'
+
+- name: selinux - change selinux config file
+  replace:
+    path: /etc/selinux/config
+    regexp: "^SELINUX=(enforcing|permissive)"
+    replace: "SELINUX=disabled"

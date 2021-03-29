@@ -1,0 +1,6 @@
+---
+- import_tasks: 1_disable_selinux.yaml
+- import_tasks: 2_change_repo.yaml
+- import_tasks: 3_install_update_package.yaml
+- import_tasks: 4_tune_kernel_param.yaml
+- import_tasks: 5_config_NTP.yaml
