@@ -1,0 +1,31 @@
+- hosts: all
+  tasks:
+    - name: remove k8s environment forcibly
+      k8s:
+        state: absent
+
+    - name: uninstall packages
+      package:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - keepalived
+        state: absent
+
+    - name: recover swap setting
+      replace:
+        path: /etc/fstab
+        regexp: '^#/(.*) swap (.*)'
+        replace: '/\1 swap \2'
+
+- hosts: master_nodes
+  tasks:
+    - name: remove kubectl auto completion
+      lineinfile:
+        dest: ~/.bashrc
+        regexp: "kubectl"
+        state: absent

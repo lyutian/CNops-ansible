@@ -1,0 +1,27 @@
+---
+- name: host environment setup
+  hosts: all
+  roles:
+    - os_init
+    - docker_env
+    - kubeadm_env
+
+- name: HA enviroment setup
+  hosts: master_nodes
+  roles:
+    - keepalived_env
+
+- name: initiate first master node
+  hosts: master_nodes[0]
+  roles:
+    - kubeadm_init
+
+- name: join the left master nodes
+  hosts: master_nodes[1:]
+  roles:
+    - master_join
+
+- name: join the left worker nodes
+  hosts: worker_nodes
+  roles:
+    - worker_join

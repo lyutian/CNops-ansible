@@ -1,0 +1,24 @@
+---
+all:
+  hosts:
+    master01:
+      ansible_host: '10.228.239.233'
+      ansible_user: 'root'
+      ansible_ssh_pass: '#1Danger0us'
+    master02:
+      ansible_host: '10.228.239.234'
+      ansible_user: 'root'
+      ansible_ssh_pass: '#1Danger0us'
+    master03:
+      ansible_host: '10.228.239.235'
+      ansible_user: 'root'
+      ansible_ssh_pass: '#1Danger0us'
+  children:
+    master_nodes:
+      hosts:
+        master01:
+        master02:
+        master03:
+    worker_nodes:
+      hosts:
+
