@@ -17,4 +17,5 @@
       - openssl-devel
       - openssh
       - iptables-services
+      - python-docker
     state: latest

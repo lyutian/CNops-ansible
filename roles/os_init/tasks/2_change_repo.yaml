@@ -1,12 +1,12 @@
 ---
 - name: replace the base repo with aliyun one
   get_url:
-    url: http://mirrors.aliyun.com/repo/Centos-7.repo
+    url: "{{ aliyun_base_repo }}"
     dest: /etc/yum.repos.d/CentOS-Base.repo
     force: yes
 
 - name: install aliyun epel repository
   yum:
-    name: http://mirrors.aliyun.com/epel/epel-release-latest-7.noarch.rpm
+    name: "{{ aliyun_epel_repo }}"
     state: present
     update_cache: yes

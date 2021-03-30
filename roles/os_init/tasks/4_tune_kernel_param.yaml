@@ -1,1 +1,8 @@
 ---
+- name: install kernel params config file
+  copy:
+    src: kernel.conf
+    dest: /etc/sysctl.d/
+
+- name: sysctl enable
+  shell: sysctl -p /etc/sysctl.d/kernel.conf

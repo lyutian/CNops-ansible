@@ -1,0 +1,17 @@
+---
+- name: config hostname
+  command: "hostnamectl set-hostname {{ inventory_hostname }}"
+
+- name: update /etc/hosts file
+  template:
+    src: hosts.jinja2
+    dest: /etc/hosts
+
+- name: swapoff - disable swap
+  command: swapoff -a
+
+- name: swapoff - disable swap in fstab file
+  replace:
+    path: /etc/fstab
+    regexp: '^/(.*) swap (.*)'
+    replace: '#/\1 swap \2'

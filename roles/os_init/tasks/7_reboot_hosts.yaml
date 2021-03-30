@@ -1,0 +1,17 @@
+---
+- name: reboot hosts
+  shell: sleep 2 && reboot
+  async: 60
+  poll: 0
+
+- name: wait for host down
+  wait_for:
+    host: "{{ ansible_host }}"
+    port: 22
+    state: stopped
+    timeout: 300
+  delegate_to: localhost
+
+- name: wait for host up
+  wait_for_connection:
+    timeout: 300

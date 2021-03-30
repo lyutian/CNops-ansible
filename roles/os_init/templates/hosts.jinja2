@@ -1,0 +1,6 @@
+127.0.0.1   localhost localhost4
+::1         localhost localhost6
+{{ virtual_ip }} {{ api_vip_hosts }}
+{% for host in groups['all'] %}
+{{ hostvars[host].ansible_host }} {{ hostvars[host].inventory_hostname }}
+{% endfor %}
