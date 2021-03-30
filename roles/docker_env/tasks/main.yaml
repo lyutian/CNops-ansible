@@ -1,0 +1,26 @@
+---
+- name: docker - add aliyun docker-ce repo
+  command: "yum-config-manager --add-repo {{ aliyun_docker_repo }}"
+
+- name: docker - install docker package
+  package:
+    name:
+      - "docker-ce-{{ docker_ce_version }}"
+      - "docker-ce-cli-{{ docker_ce_version }}"
+    state: latest
+
+# - name: docker - start docker
+#   systemd:
+#     name: docker
+#     state: started
+#     enabled: yes
+
+- name: docker - config docker daemon
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+
+- name: docker - restart docker
+  systemd:
+    name: docker
+    state: restarted
