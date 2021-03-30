@@ -5,14 +5,20 @@ all:
       ansible_host: '10.228.239.233'
       ansible_user: 'root'
       ansible_ssh_pass: '#1Danger0us'
+      ha_role: ha_master
+      NIC: ens160
     master02:
       ansible_host: '10.228.239.234'
       ansible_user: 'root'
       ansible_ssh_pass: '#1Danger0us'
+      ha_role: ha_backup
+      NIC: ens160
     master03:
       ansible_host: '10.228.239.235'
       ansible_user: 'root'
       ansible_ssh_pass: '#1Danger0us'
+      ha_role: ha_backup
+      NIC: ens160
   children:
     master_nodes:
       hosts:
