@@ -1,0 +1,46 @@
+---
+- name: configure auto-completation for k8s
+  lineinfile:
+    dest: ~/.bashrc
+    line: "source <(kubectl completion bash)"
+
+- name: pull docker image for master
+  docker_image:
+    name: "{{ k8s_aliyun_url }}/google_containers/{{ item }}"
+    source: pull
+  with_items:
+    - kube-apiserver:v{{ k8s_version }}
+    - kube-controller-manager:v{{ k8s_version }}
+    - kube-scheduler:v{{ k8s_version }}
+    - kube-proxy:v{{ k8s_version }}
+    - etcd:{{ etcd_version }}
+    - pause:{{ pause_version }}
+    - coredns:{{ coredns_version }}
+
+- name: re-tag the docker image
+  docker_image:
+    name: "{{ k8s_aliyun_url }}/google_containers/{{ item }}"
+    repository: "{{ k8s_gcr_url }}/{{ item }}"
+    push: no
+    source: local
+  with_items:
+    - kube-apiserver:v{{ k8s_version }}
+    - kube-controller-manager:v{{ k8s_version }}
+    - kube-scheduler:v{{ k8s_version }}
+    - kube-proxy:v{{ k8s_version }}
+    - etcd:{{ etcd_version }}
+    - pause:{{ pause_version }}
+    - coredns:{{ coredns_version }}
+
+- name: remove the docker image with aliyun tag
+  docker_image:
+    name: "{{ k8s_aliyun_url }}/google_containers/{{ item }}"
+    state: absent
+  with_items:
+    - kube-apiserver:v{{ k8s_version }}
+    - kube-controller-manager:v{{ k8s_version }}
+    - kube-scheduler:v{{ k8s_version }}
+    - kube-proxy:v{{ k8s_version }}
+    - etcd:{{ etcd_version }}
+    - pause:{{ pause_version }}
+    - coredns:{{ coredns_version }}
