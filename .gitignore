@@ -11,3 +11,6 @@ facts/
 
 # log files
 *.log
+
+# fetched folder
+fetched/
