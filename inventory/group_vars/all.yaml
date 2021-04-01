@@ -6,14 +6,20 @@ aliyun_docker_repo: http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.r
 
 # k8s resource
 k8s_gcr_url: k8s.gcr.io
-k8s_aliyun_url: registry.aliyuncs.com/google_containers
+k8s_aliyun_url: registry.aliyuncs.com
 
 # package version
 docker_ce_version: 19.03.11
-k8s_version: 1.20.4
+k8s_version: 1.20.4     # for kubectl/kubeadm/kubelet/k8s-image
+etcd_version: 3.4.13-0
+pause_version: 3.2
+coredns_version: 1.7.0
 
 # high availability configuration
 virtual_ip: '10.228.239.240'
 api_vip_hosts: 'api.mastervip.com'
 haproxy_port: 9443
 keepalived_vr_id: 35
+
+# k8s config
+pod_cidr: '10.10.0.0/16'
