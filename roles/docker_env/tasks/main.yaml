@@ -9,15 +9,15 @@
       - "docker-ce-cli-{{ docker_ce_version }}"
     state: latest
 
-# - name: docker - start docker
-#   systemd:
-#     name: docker
-#     state: started
-#     enabled: yes
+- name: docker - start docker
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
 
 - name: docker - config docker daemon
-  copy:
-    src: daemon.json
+  template:
+    src: daemon.json.jinja2
     dest: /etc/docker/daemon.json
 
 - name: docker - restart docker

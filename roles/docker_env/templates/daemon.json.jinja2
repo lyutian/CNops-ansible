@@ -1,0 +1,25 @@
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "default-ulimits": {
+    "nofile": {
+      "Hard": 64000,
+      "Name": "nofile",
+      "Soft": 64000
+    }
+  },
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-file": "5",
+    "max-size": "10m"
+  },
+  "max-concurrent-downloads": 3,
+  "max-concurrent-uploads": 5,
+  "registry-mirrors": [
+      "https://registry.cn-hangzhou.aliyuncs.com",
+      "https://docker.mirrors.ustc.edu.cn",
+      "https://hub-mirror.c.163.com",
+      "https://registry.docker-cn.com"
+  ],
+  "selinux-enabled": false,
+  "insecure-registries": ["{{ k8s_aliyun_url }}"]
+}
