@@ -1,14 +1,27 @@
 ---
-- name: NTP - delete NTP configration
-  lineinfile:
-    dest: /etc/ntp.conf
-    regexp: "^server"
-    state: absent
+- name: NTP - stop ntpd
+  systemd:
+    name: ntpd
+    state: stopped
 
 - name: NTP - delete ntpdate configration
   lineinfile:
     dest: /etc/ntp/step-tickers
     regexp: "^0"
+    state: absent
+
+- name: NTP - add ntpdate configration
+  lineinfile:
+    dest: /etc/ntp/step-tickers
+    line: "ntp1.aliyun.com"
+
+- name: NTP - ntpdate now
+  command: ntpdate ntp1.aliyun.com
+
+- name: NTP - delete NTP configration
+  lineinfile:
+    dest: /etc/ntp.conf
+    regexp: "^server"
     state: absent
 
 - name: NTP - add NTP server
@@ -18,11 +31,6 @@
   with_items:
     - "server ntp.aliyun.com"
     - "server ntp1.aliyun.com"
-
-- name: NTP - add ntpdate configration
-  lineinfile:
-    dest: /etc/ntp/step-tickers
-    line: "ntp1.aliyun.com"
 
 - name: NTP - start ntpd
   systemd:

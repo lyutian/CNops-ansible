@@ -4,5 +4,8 @@
     src: kernel.conf
     dest: /etc/sysctl.d/
 
+- name: load br_netfilter module
+  command: modprobe br_netfilter
+
 - name: sysctl enable
   shell: sysctl -p /etc/sysctl.d/kernel.conf
