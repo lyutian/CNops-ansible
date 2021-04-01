@@ -1,0 +1,25 @@
+- name: push master_join script
+  copy:
+    src: fetched/master_join.sh
+    dest: /tmp/master_join.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: reset kubernetes environment
+  command: "kubeadm reset -f"
+
+- name: control-plane node join
+  command: "/bin/bash /tmp/master_join.sh > /tmp/master_join.log"
+
+- name: post_config - create folder
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: '0755'
+
+- name: post_config - copy admin.conf file
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: $HOME/.kube/config
+    remote_src: yes
