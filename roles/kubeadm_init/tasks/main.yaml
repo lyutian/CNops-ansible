@@ -1,0 +1,49 @@
+---
+- name: reset kubernetes environment
+  command: "kubeadm reset -f"
+
+- name: upload kubeadm.conf file
+  template:
+    src: kubeadm.conf.jinja2
+    dest: /tmp/kubeadm.conf
+
+- name: kubeadm init
+  shell: "kubeadm init --config=/tmp/kubeadm.conf --upload-certs > /tmp/kubeadm_init.output"
+
+- name: post_config - create folder
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: '0755'
+
+- name: post_config - copy admin.conf file
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: $HOME/.kube/config
+    remote_src: yes
+
+- name: generate master join script
+  shell: "grep -A4 'control-plane node' /tmp/kubeadm_init.output | tail -3 > /tmp/master_join.sh"
+
+- name: generate node join script
+  shell: "grep -A3 'worker node' /tmp/kubeadm_init.output | tail -2 > /tmp/worker_join.sh"
+
+- name: fetch master_join script to ansible host
+  fetch:
+    src: /tmp/master_join.sh
+    dest: fetched/
+    flat: yes
+
+- name: fetch worker_join script to ansible host
+  fetch:
+    src: /tmp/worker_join.sh
+    dest: fetched/
+    flat: yes
+
+- name: calico network - push calico.yaml file
+  template:
+    src: calico.yaml.jinja2
+    dest: /tmp/calico.yaml
+
+- name: calico network - apply calico.yaml
+  command: kubectl apply -f /tmp/calico.yaml
