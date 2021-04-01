@@ -9,7 +9,8 @@
 - name: HA enviroment setup
   hosts: master_nodes
   roles:
-    - keepalived_env
+    - keepalived_haproxy
+    - master_image
 
 - name: initiate first master node
   hosts: master_nodes[0]
