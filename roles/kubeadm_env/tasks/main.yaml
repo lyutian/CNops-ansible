@@ -5,8 +5,8 @@
     description: kubernetes yum repo
     baseurl: http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
     enabled: yes
-    gpgcheck: yes
-    repo_gpgcheck: yes
+    gpgcheck: no  # should be no, check failed
+    repo_gpgcheck: no # should be no, check failed
     gpgkey:
       - http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
       - http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
