@@ -16,10 +16,10 @@ pause_version: 3.2
 coredns_version: 1.7.0
 
 # high availability configuration
-virtual_ip: '10.228.239.240'
+virtual_ip: 'xx.xx.xx.xx'  # virtual ip
 api_vip_hosts: 'api.mastervip.com'
 haproxy_port: 9443
-keepalived_vr_id: 35
+keepalived_vr_id: 35 # need change to another if there's another k8s cluster in the same subnet
 
 # k8s config
 pod_cidr: '10.10.0.0/16'
