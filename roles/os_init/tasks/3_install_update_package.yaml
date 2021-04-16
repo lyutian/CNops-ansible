@@ -18,4 +18,11 @@
       - openssh
       - iptables-services
       - python-docker
+      - iscsi-initiator-utils
     state: latest
+
+- name: start and enable iscsi daemon
+  systemd:
+    name: iscsid
+    state: started
+    enabled: yes
