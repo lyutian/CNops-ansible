@@ -2,23 +2,23 @@
 all:
   hosts:
     master01:
-      ansible_host: '10.228.239.233'
+      ansible_host: 'xx.xx.xx.xx'
       ansible_user: 'root'
-      ansible_ssh_pass: '#1Danger0us'
+      ansible_ssh_pass: 'xxxxx'
       ha_role: ha_master
-      NIC: ens160
+      NIC: ensxxx
     master02:
-      ansible_host: '10.228.239.234'
+      ansible_host: 'xx.xx.xx.xx'
       ansible_user: 'root'
-      ansible_ssh_pass: '#1Danger0us'
+      ansible_ssh_pass: 'xxxxx'
       ha_role: ha_backup
-      NIC: ens160
+      NIC: ensxxx
     master03:
-      ansible_host: '10.228.239.235'
+      ansible_host: 'xx.xx.xx.xx'
       ansible_user: 'root'
-      ansible_ssh_pass: '#1Danger0us'
+      ansible_ssh_pass: 'xxxxx'
       ha_role: ha_backup
-      NIC: ens160
+      NIC: ensxxx
   children:
     master_nodes:
       hosts:
