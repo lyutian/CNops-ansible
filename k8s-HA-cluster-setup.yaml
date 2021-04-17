@@ -26,3 +26,8 @@
   hosts: worker_nodes
   roles:
     - worker_join
+
+- name: post config for master nodes
+  hosts: master_nodes
+  roles:
+    - post_config
