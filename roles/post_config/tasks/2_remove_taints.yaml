@@ -1,0 +1,3 @@
+---
+- name: remove taint of current host
+  command: "kubectl taint nodes {{ inventory_hostname }} node-role.kubernetes.io/master=:NoSchedule-"
