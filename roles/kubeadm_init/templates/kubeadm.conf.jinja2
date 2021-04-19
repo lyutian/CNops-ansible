@@ -12,7 +12,7 @@ imageRepository: {{ k8s_gcr_url }}
 controlPlaneEndpoint: "{{ api_vip_hosts }}:6443"
 networking:
   dnsDomain: cluster.local
-  serviceSubnet: 10.96.0.0/12
+  serviceSubnet: 10.96.0.0/16
   podSubnet: {{ pod_cidr }}
 certificatesDir: /etc/kubernetes/pki
 apiServer:
