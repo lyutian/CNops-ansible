@@ -1,3 +1,4 @@
 ---
 - name: remove taint of current host
-  command: "kubectl taint nodes {{ inventory_hostname }} node-role.kubernetes.io/master=:NoSchedule-"
+  command: "kubectl taint nodes --all node-role.kubernetes.io/master=:NoSchedule-"
+  run_once: yes
