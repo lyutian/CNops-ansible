@@ -24,3 +24,13 @@ etcd:
     dataDir: /var/lib/etcd
 scheduler: {}
 controllerManager: {}
+
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: systemd
+
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind:  KubeProxyConfiguration
+mode: ipvs
