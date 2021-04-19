@@ -18,3 +18,9 @@
     name: firewalld
     state: stopped
     enabled: no
+
+- name: close iptables # need to close
+  systemd:
+    name: iptables
+    state: stopped
+    enabled: no
