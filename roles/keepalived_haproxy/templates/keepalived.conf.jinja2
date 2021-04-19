@@ -19,10 +19,11 @@ vrrp_script check_apiserver {
 }
 
 vrrp_instance VI_1 {
-    state {{ role }}
+    state BACKUP
     interface {{ NIC }}
     virtual_router_id {{ keepalived_vr_id }}
-    priority {{ priority }}
+    priority 90
+    nopreempt
     authentication {
         auth_type PASS
         auth_pass k8sDanger0us

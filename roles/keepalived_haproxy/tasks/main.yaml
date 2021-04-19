@@ -6,23 +6,6 @@
       - haproxy
     state: latest
 
-- name: keepalived - install config file
-  template:
-    src: keepalived.conf.jinja2
-    dest: /etc/keepalived/keepalived.conf
-
-- name: keepalived - install check alive script
-  template:
-    src: check_apiservice.sh.jinja2
-    dest: /etc/keepalived/check_apiserver.sh
-    mode: '0755'
-
-- name: keepalived - restart keepalived service
-  service:
-    name: keepalived
-    state: restarted
-    enabled: yes
-
 - name: haproxy - install config file
   template:
     src: haproxy.cfg.jinja2
@@ -33,3 +16,21 @@
     name: haproxy
     state: restarted
     enabled: yes
+
+- name: keepalived - install config file
+  template:
+    src: keepalived.conf.jinja2
+    dest: /etc/keepalived/keepalived.conf
+
+- name: keepalived - install check alive script
+  template:
+    src: check_apiservice.sh.jinja2
+    dest: /etc/keepalived/check_apiservice.sh
+    mode: '0755'
+
+- name: keepalived - restart keepalived service
+  service:
+    name: keepalived
+    state: restarted
+    enabled: yes
+
