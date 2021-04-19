@@ -20,7 +20,6 @@
       - python-docker
       - iscsi-initiator-utils
       - ipvsadm
-      - ipvsset
     state: latest
 
 - name: start and enable iscsi daemon
