@@ -5,4 +5,5 @@
 - import_tasks: 4_tune_kernel_param.yaml
 - import_tasks: 5_config_NTP.yaml
 - import_tasks: 6_hosts_swap.yaml
-- import_tasks: 7_reboot_hosts.yaml
+- import_tasks: 7_conf_ipvs.yaml
+- import_tasks: 8_reboot_hosts.yaml
