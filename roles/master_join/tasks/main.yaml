@@ -8,9 +8,11 @@
 
 - name: reset kubernetes environment
   command: "kubeadm reset -f"
+  throttle: 1
 
 - name: control-plane node join
   command: "/bin/bash /tmp/master_join.sh > /tmp/master_join.log"
+  throttle: 1
 
 - name: post_config - create folder
   file:

@@ -1,5 +1,5 @@
 ---
-- name: reset kubernetes environment
+- name: reset kubernetes environment for first master
   command: "kubeadm reset -f"
 
 - name: upload kubeadm.conf file
