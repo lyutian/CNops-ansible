@@ -1,33 +1,43 @@
-- 使用172.172.0.0/16 for calico
-- 使用ipvs
-# yum -y install ipvsadm ipvsset
-# cat > /etc/sysconfig/modules/ipvs.modules <<EOF
-modprobe -- ip_vs
-modprobe -- ip_vs_rr
-modprobe -- ip_vs_wrr
-modprobe -- ip_vs_sh
-modprobe -- nf_conntrack_ipv4
-EOF
-# chmod 755 /etc/sysconfig/modules/ipvs.modules && bash /etc/sysconfig/modules/ipvs.modules && lsmod | grep -e ip_vs -e nf_conntrack_ipv4
+### Issues:
+- [x] 使用172.172.0.0/16 for calico
+- [x] 使用ipvs
+    ```
+    # yum -y install ipvsadm ipvsset
+    # cat > /etc/sysconfig/modules/ipvs.modules <<EOF
+    modprobe -- ip_vs
+    modprobe -- ip_vs_rr
+    modprobe -- ip_vs_wrr
+    modprobe -- ip_vs_sh
+    modprobe -- nf_conntrack_ipv4
+    EOF
+    # chmod 755 /etc/sysconfig/modules/ipvs.modules && bash /etc/sysconfig/modules/ipvs.modules && lsmod | grep -e ip_vs -e nf_conntrack_ipv4
+    ```
 
-- 添加如下配置到kubeadm.conf
----
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-cgroupDriver: systemd
+- [x] 添加如下配置到kubeadm.conf
+    ```
+    ---
+    apiVersion: kubelet.config.k8s.io/v1beta1
+    kind: KubeletConfiguration
+    cgroupDriver: systemd
 
----
-apiVersion: kubeproxy.config.k8s.io/v1alpha1
-kind:  KubeProxyConfiguration
-mode: ipvs
+    ---
+    apiVersion: kubeproxy.config.k8s.io/v1alpha1
+    kind:  KubeProxyConfiguration
+    mode: ipvs
+    ```
 
-- 修改kubeadm.conf
-controlPlaneEndpoint: "master01:6443"
+- [ ] 修改kubeadm.conf
+    ```
+    controlPlaneEndpoint: "master01:6443"
+    ```
 
-- 去掉taint
-kubectl taint nodes --all node-role.kubernetes.io/master-
+- [x] 去掉taint
+    ```
+    kubectl taint nodes --all node-role.kubernetes.io/master-
+    ```
 
-
+### Temporary notice
+```
 --------------------------
 yum install iscsi-initiator-utils -y
 sudo systemctl enable --now iscsid
@@ -68,3 +78,4 @@ k8s.gcr.io/kube-scheduler            v1.20.4             5f8cb769bd73        8 w
 k8s.gcr.io/etcd                      3.4.13-0            0369cf4303ff        7 months ago        253MB
 k8s.gcr.io/coredns                   1.7.0               bfe3a36ebd25        10 months ago       45.2MB
 k8s.gcr.io/pause                     3.2                 80d28bedfe5d        14 months ago       683kB
+```
