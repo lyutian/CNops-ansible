@@ -1,0 +1,15 @@
+---
+- name: change the kube-apiserver.yaml file
+  lineinfile:
+    path: /etc/kubernetes/manifests/kube-apiserver.yaml
+    line: '    - --service-node-port-range=1-65535'
+    insertafter: '^    - --secure-port=6443'
+
+- name: get all apiserver pods
+  command: kubectl get pods --selector=component=kube-apiserver -n kube-system --output=jsonpath={.items..metadata.name}
+  register: apiserver_pods
+  run_once: yes
+
+- name: reboot apiserver pods
+  command: kubectl delete pod {{ apiserver_pods.stdout }} -n kube-system
+  run_once: yes
