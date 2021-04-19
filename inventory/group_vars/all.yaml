@@ -1,4 +1,3 @@
-
 # package resource
 aliyun_base_repo: http://mirrors.aliyun.com/repo/Centos-7.repo
 aliyun_epel_repo: http://mirrors.aliyun.com/epel/epel-release-latest-7.noarch.rpm
@@ -22,4 +21,4 @@ haproxy_port: 9443
 keepalived_vr_id: 35 # need change to another if there's another k8s cluster in the same subnet
 
 # k8s config
-pod_cidr: '10.10.0.0/16'
+pod_cidr: '172.172.0.0/16'
